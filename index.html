@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>GeneID SAM New Hire Training Hub</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f4f4;color:#333;min-height:100vh;display:flex;flex-direction:column}
+:root{--t:#0a7c6e;--td:#065a50;--tl:#e6f4f1;--tm:#14a896;--n:#0d2b3e;--g:#f0a500;--w:#fff;--gr:#f7fafa;--p:#5a3e8e;--gn:#2d7a4f;--o:#c05000;--r:#c0392b;--pk:#b5436a;--hs:#ff7a59}
+/* TOP BAR */
+#topbar{background:var(--n);padding:0 20px;height:56px;display:flex;align-items:center;box-shadow:0 2px 12px rgba(0,0,0,.35);flex-shrink:0;z-index:200;position:sticky;top:0}
+.brand-name{color:#fff;font-weight:900;font-size:18px;letter-spacing:1px}
+.brand-sub{color:var(--tm);font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase}
+#topProgWrap{margin-left:auto;display:flex;align-items:center;gap:12px}
+#topProgBarOuter{width:200px;height:9px;background:rgba(255,255,255,.15);border-radius:6px;overflow:hidden}
+#topProgBar{height:100%;width:0;background:linear-gradient(90deg,var(--tm),var(--g));border-radius:6px;transition:width .4s}
+#topProgLbl{color:#fff;font-size:12px;font-weight:700;white-space:nowrap}
+/* LAYOUT */
+#shell{display:flex;flex:1;overflow:hidden;height:calc(100vh - 56px)}
+#sidebar{width:250px;background:var(--n);display:flex;flex-direction:column;overflow-y:auto;flex-shrink:0;padding:16px 0}
+#sidebar::-webkit-scrollbar{width:4px}
+#sidebar::-webkit-scrollbar-thumb{background:rgba(255,255,255,.15);border-radius:2px}
+.nav-section-label{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.3);padding:14px 18px 6px;display:block}
+.nav-item{display:flex;align-items:center;gap:8px;width:100%;text-align:left;border:none;background:none;color:rgba(255,255,255,.6);font-size:12.5px;padding:9px 18px 9px 20px;cursor:pointer;border-left:3px solid transparent;transition:all .18s;line-height:1.35}
+.nav-item:hover{color:#fff;background:rgba(255,255,255,.06)}
+.nav-item.on{color:#fff;background:rgba(10,124,110,.35);border-left-color:var(--tm);font-weight:700}
+.nav-day{font-size:8px;font-weight:800;letter-spacing:1px;color:var(--g);background:rgba(240,165,0,.12);padding:2px 6px;border-radius:5px;margin-left:auto}
+.nav-divider{height:1px;background:rgba(255,255,255,.07);margin:8px 16px}
+.nav-check{margin-left:auto;font-size:12px;color:var(--tm)}
+/* MAIN */
+#main{flex:1;overflow-y:auto;padding:28px 34px 60px}
+#main::-webkit-scrollbar{width:6px}
+#main::-webkit-scrollbar-thumb{background:#c0d8d4;border-radius:3px}
+.page{display:none}
+.page.on{display:block}
+h1.ph{font-size:26px;font-weight:900;color:var(--n);margin-bottom:4px}
+h2.ph{font-size:22px;font-weight:900;color:var(--n);margin-bottom:4px}
+.sub-head{color:#5a7a7a;font-size:13px;margin-bottom:22px}
+/* DAY HEADER */
+.day-hero{border-radius:14px;padding:22px 28px;margin-bottom:22px;color:#fff}
+.day-hero .kick{font-size:10px;font-weight:800;letter-spacing:3px;text-transform:uppercase;opacity:.85;margin-bottom:6px}
+.day-hero h1{font-size:25px;font-weight:900;margin-bottom:6px;line-height:1.15}
+.day-hero .sub{font-size:13px;opacity:.85;line-height:1.5}
+.day-prog{margin-top:14px;display:flex;align-items:center;gap:10px}
+.day-prog-outer{flex:1;height:8px;background:rgba(255,255,255,.2);border-radius:6px;overflow:hidden}
+.day-prog-inner{height:100%;width:0;background:#fff;border-radius:6px;transition:width .35s}
+.day-prog-lbl{font-size:11px;font-weight:700;white-space:nowrap;opacity:.9}
+/* CARD */
+.card{background:#fff;border-radius:12px;margin-bottom:16px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.07)}
+.block-hd{display:flex;align-items:flex-start;gap:12px;padding:16px 20px}
+.block-num{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-weight:900;font-size:14px;color:#fff}
+.block-ttl{font-weight:800;color:var(--n);font-size:15px;line-height:1.3}
+.block-meta{font-size:11px;color:#7a9a9a;margin-top:2px;font-weight:600}
+.block-body{padding:0 20px 18px 62px}
+/* TASK ROW w/ CHECKBOX */
+.task{display:flex;align-items:flex-start;gap:11px;padding:11px 14px;background:var(--gr);border-radius:9px;margin-bottom:8px;cursor:pointer;transition:background .15s;border:1px solid #eef3f2}
+.task:hover{background:#eef6f4}
+.task.done{background:#eaf7ef;border-color:#c5e8d3}
+.task .box{width:20px;height:20px;border-radius:5px;border:2px solid #b8c8c5;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff;margin-top:1px;transition:all .15s}
+.task.done .box{background:var(--gn);border-color:var(--gn)}
+.task .txt{font-size:13px;color:#2c4040;line-height:1.5}
+.task.done .txt{color:#5a7a6a}
+.task .txt strong{color:var(--n)}
+.task.done .txt strong{color:#3a6a52}
+/* VIDEO CARD */
+.vid-card{display:flex;gap:14px;align-items:center;background:linear-gradient(135deg,var(--n),#16384f);border-radius:11px;padding:14px 16px;margin-bottom:10px;text-decoration:none;transition:transform .15s,box-shadow .15s}
+.vid-card:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(13,43,62,.25)}
+.vid-play{width:46px;height:46px;border-radius:10px;background:var(--tm);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:19px;color:#fff}
+.vid-info .vtitle{color:#fff;font-weight:700;font-size:13.5px;line-height:1.3}
+.vid-info .vmeta{color:rgba(255,255,255,.55);font-size:11px;margin-top:3px;display:flex;align-items:center;gap:6px}
+.vid-badge{background:rgba(20,168,150,.25);color:#7fe6d6;font-size:9px;font-weight:700;padding:1px 7px;border-radius:10px;letter-spacing:.5px}
+.vid-badge.soon{background:rgba(240,165,0,.2);color:#ffcf6b}
+.vid-arrow{margin-left:auto;color:rgba(255,255,255,.4);font-size:18px}
+.vid-embed{position:relative;padding-top:56.25%;border-radius:11px;overflow:hidden;margin-bottom:6px;background:#0d2b3e;box-shadow:0 3px 12px rgba(13,43,62,.18)}.vid-embed iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none}.vid-cap{font-size:11px;color:#7a9a9a;font-weight:600;margin:0 0 12px;padding-left:2px}
+/* QUIZ */
+.quiz-wrap{border:1px solid #e0e8e3;border-radius:11px;overflow:hidden;margin-bottom:10px;background:#fff}
+.quiz-hd{background:var(--tl);padding:10px 16px;display:flex;align-items:center;gap:9px;cursor:pointer;font-weight:700;color:var(--td);font-size:13px}
+.quiz-hd .qbadge{background:var(--t);color:#fff;font-size:9px;font-weight:700;padding:2px 8px;border-radius:10px;letter-spacing:.5px}
+.quiz-hd .qtoggle{margin-left:auto;color:var(--t)}
+.quiz-frame-box{display:none;padding:0;background:#f8fafa}
+.quiz-frame-box iframe{width:100%;height:560px;border:none;display:block}
+.quiz-fallback{padding:12px 16px;font-size:12px;color:#5a7a7a;background:#f8fafa;border-top:1px solid #eef3f2}
+.quiz-fallback a{color:var(--t);font-weight:600}
+/* LIVE SESSION */
+.live-card{background:linear-gradient(135deg,var(--p),#7a5ab0);border-radius:12px;padding:18px 22px;margin-bottom:14px;color:#fff;display:flex;gap:16px;align-items:flex-start}
+.live-icon{width:44px;height:44px;border-radius:10px;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.live-card .lt{font-weight:800;font-size:15px;margin-bottom:4px}
+.live-card .lm{font-size:12.5px;opacity:.9;line-height:1.6}
+.live-time{display:inline-block;background:var(--g);color:#4a3500;font-weight:800;font-size:11px;padding:3px 10px;border-radius:8px;margin-top:8px}
+/* CALLOUT */
+.callout{border-radius:10px;padding:14px 18px;margin-bottom:14px;font-size:13px;line-height:1.6}
+.callout.info{background:var(--tl);color:#265;border-left:4px solid var(--t)}
+.callout.warn{background:#fff8e0;color:#7a5a00;border-left:4px solid var(--g)}
+.callout.action{background:#f3eefb;color:#4a3570;border-left:4px solid var(--p)}
+.callout .ct{font-weight:800;margin-bottom:5px;display:block}
+/* FIELD PREP GRID */
+.prep-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-top:10px}
+.prep-item{background:var(--gr);border-radius:9px;padding:12px;border:1px solid #eef3f2}
+.prep-item .pv{font-weight:800;color:var(--t);font-size:14px}
+.prep-item .pl{font-size:11px;color:#5a7a7a;margin-top:3px;line-height:1.4}
+/* HOME HERO */
+.hero-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-bottom:22px}
+.hero-tile{background:#fff;border-radius:12px;padding:16px 18px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.07);border-left:5px solid var(--t);transition:transform .15s}
+.hero-tile:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,.1)}
+.hero-tile .hday{font-size:9px;font-weight:800;letter-spacing:2px;color:var(--g);text-transform:uppercase}
+.hero-tile .htt{font-weight:800;font-size:14px;color:var(--n);margin:5px 0 3px}
+.hero-tile .htd{font-size:11px;color:#666;line-height:1.4}
+.hero-tile .hmini{margin-top:9px;height:6px;background:#eef3f2;border-radius:4px;overflow:hidden}
+.hero-tile .hmini span{display:block;height:100%;width:0;background:var(--gn);border-radius:4px;transition:width .35s}
+/* QUICK REF */
+.qr-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+.qr-card{background:#fff;border-radius:11px;padding:16px;box-shadow:0 2px 8px rgba(0,0,0,.06);border-top:4px solid var(--t)}
+.qr-card .qrt{font-weight:800;font-size:13px;margin-bottom:8px}
+.pt{display:flex;gap:8px;margin-bottom:7px;font-size:12.5px;color:#444;line-height:1.5;align-items:flex-start}
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.stat-box{background:var(--tl);border-radius:8px;padding:11px 13px}
+.stat-box .val{font-weight:800;color:var(--t);font-size:19px}
+.stat-box .lbl{font-size:11px;color:#444;margin-top:2px;line-height:1.3}
+.obj-q{padding:10px 14px;cursor:pointer;background:#f8f9fa;font-weight:600;font-size:12.5px;color:#333;display:flex;justify-content:space-between;border-radius:8px;border:1px solid #ececec}
+.obj-a{padding:11px 14px;font-size:12.5px;color:#444;line-height:1.6;display:none;background:#fff;border-radius:0 0 8px 8px;border:1px solid #e8e8e8;border-top:none}
+/* MEETING DECK */
+.slide-nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.slide-btn{padding:7px 18px;border-radius:8px;border:2px solid var(--t);font-weight:700;cursor:pointer;font-size:13px}
+.slide-btn:disabled{opacity:.4;cursor:not-allowed}
+.deck-slide{background:var(--gr);border-radius:14px;padding:26px 30px;margin-bottom:14px;min-height:300px;box-shadow:0 4px 20px rgba(13,43,62,.1)}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.reset-btn{background:none;border:1px solid #d0d8d6;color:#7a8a88;font-size:11px;padding:5px 12px;border-radius:7px;cursor:pointer;margin-left:8px}
+.reset-btn:hover{background:#f4f6f6;color:#556}
+@media(max-width:760px){#sidebar{display:none}#main{padding:16px}#topProgBarOuter{width:110px}.block-body{padding-left:20px}.g2,.g3,.g4{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<div id="topbar">
+  <div style="margin-right:18px;padding-right:18px;border-right:1px solid rgba(255,255,255,.15)">
+    <div class="brand-name">GeneID</div>
+    <div class="brand-sub">SAM New Hire Training Hub</div>
+  </div>
+  <div style="color:rgba(255,255,255,.4);font-size:12px" class="hide-mobile">Your first week — start to field-ready</div>
+  <div id="topProgWrap">
+    <div id="topProgBarOuter"><div id="topProgBar"></div></div>
+    <div id="topProgLbl">0%</div>
+  </div>
+</div>
+
+<div id="shell">
+
+<!-- SIDEBAR -->
+<div id="sidebar">
+  <div class="nav-section">
+    <span class="nav-section-label">Overview</span>
+    <button class="nav-item on" data-tab="home">🏠 Welcome &amp; Roadmap</button>
+  </div>
+  <div class="nav-divider"></div>
+  <div class="nav-section">
+    <span class="nav-section-label">Your First Week</span>
+    <button class="nav-item" data-tab="monday">🔐 Get Set Up <span class="nav-day">MON</span></button>
+    <button class="nav-item" data-tab="tuesday">🎓 Core Training <span class="nav-day">TUE</span></button>
+    <button class="nav-item" data-tab="wednesday">🧬 Product &amp; Portfolio <span class="nav-day">WED</span></button>
+    <button class="nav-item" data-tab="thursday">📊 HubSpot &amp; Pipeline <span class="nav-day">THU</span></button>
+    <button class="nav-item" data-tab="friday">🎯 Readiness &amp; Role-Play <span class="nav-day">FRI</span></button>
+    <button class="nav-item" data-tab="field">🚀 Field Launch <span class="nav-day">MON</span></button>
+  </div>
+  <div class="nav-divider"></div>
+  <div class="nav-section">
+    <span class="nav-section-label">Training Resources</span>
+    <button class="nav-item" data-tab="deck">📽️ Physician Meeting Deck</button>
+    <button class="nav-item" data-tab="products">💊 Product Quick Reference</button>
+    <button class="nav-item" data-tab="objections">🛡️ Objection Handler</button>
+    <button class="nav-item" data-tab="contacts">📞 Key Contacts</button>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div id="main">
+
+<!-- ══ HOME ══ -->
+<div class="page on" id="p-home">
+  <h1 class="ph">Welcome to GeneID 👋</h1>
+  <p class="sub-head">This hub is your guided path through your first week. Work through each day in order, check off tasks as you complete them, and your progress saves automatically. By next Monday you'll be field-ready.</p>
+
+  <div class="callout info" style="margin-bottom:22px">
+    <span class="ct">How this week works</span>
+    Monday you get your systems set up. Tuesday through Thursday you'll work through training videos, quizzes, and live sessions with the team. Friday you sharpen up and prep your route. The following Monday you're in the field. Watch every video <strong>in full</strong> before taking its quiz — we review quiz answers together.
+  </div>
+
+  <div class="hero-grid" id="heroGrid"></div>
+
+  <div class="card" style="padding:18px 20px">
+    <div style="font-weight:800;color:var(--n);font-size:14px;margin-bottom:6px">🌟 A note from your manager</div>
+    <div style="font-size:13px;color:#444;line-height:1.7;font-style:italic">"Good luck! I'm here to support your success, every step of the way. Bring your questions to our live sessions — no question is too small during your first week."<br><span style="font-style:normal;font-weight:700;color:var(--n)">— Jessica Subirats, Regional VP of Sales</span></div>
+  </div>
+</div>
+
+<!-- ══ MONDAY ══ -->
+<div class="page" id="p-monday">
+  <div class="day-hero" style="background:linear-gradient(135deg,var(--n),var(--td))">
+    <div class="kick">Monday</div>
+    <h1>Get Set Up</h1>
+    <div class="sub">Complete everything below <strong>before</strong> live training begins Tuesday. This is your foundation — systems, credentials, and compliance.</div>
+    <div class="day-prog"><div class="day-prog-outer"><div class="day-prog-inner" data-day="monday"></div></div><div class="day-prog-lbl" data-daylbl="monday">0 / 0</div></div>
+  </div>
+
+  <div class="card">
+    <div class="block-hd"><div class="block-num" style="background:var(--n)">1</div><div><div class="block-ttl">Compliance &amp; HIPAA Training</div><div class="block-meta">Required · complete before Tuesday</div></div></div>
+    <div class="block-body">
+      <div class="task" data-task><div class="box">✓</div><div class="txt"><strong>Complete Compliance &amp; HIPAA training.</strong> Covers patient privacy, PHI handling, and your obligations as a field rep.</div></div>
+      <div class="task" data-task><div class="box">✓</div><div class="txt"><strong>Complete all 3 Canvas training modules</strong> and finish account setup in Canvas.</div></div>
+      <div class="callout warn"><span class="ct">⚠️ Why this comes first</span>You'll be handling provider and patient information from day one. Compliance isn't a formality — it's what lets you operate in the field. Get this done Monday so Tuesday is clear for product training.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="block-hd"><div class="block-num" style="background:var(--t)">2</div><div><div class="block-ttl">Account &amp; System Setup</div><div class="block-meta">Get your logins working</div></div></div>
+    <div class="block-body">
+      <div class="task" data-task><div class="box">✓</div><div class="txt">Confirm your <strong>GeneID email</strong> and Microsoft Teams access are working.</div></div>
+      <div class="task" data-task><div class="box">✓</div><div class="txt">Confirm access to the <strong>GeneID Operations SharePoint</strong> — this is where all training videos live. If a video won't open this week, this is usually why.</div></div>
+      <div class="task" data-task><div class="box">✓</div><div class="txt">Confirm your <strong>HubSpot</strong> login (you'll build your pipeline Thursday).</div></div>
+      <div class="callout info"><span class="ct">🔑 Access issue?</span>SharePoint videos require access to the GeneID Operations site. If any video link says you don't have permission, flag it to Allan (IT) or your manager right away so it's fixed before Wednesday.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ TUESDAY ══ -->
+<div class="page" id="p-tuesday">
+  <div class="day-hero" style="background:linear-gradient(135deg,var(--n),var(--t))">
+    <div class="kick">Tuesday</div>
+    <h1>Core Training Modules</h1>
+    <div class="sub">Morning: watch each video in full, then take its quiz. Afternoon: role-play and admin responsibilities with Monique Rivera.</div>
+    <div class="day-prog"><div class="day-prog-outer"><div class="day-prog-inner" data-day="tuesday"></div></div><div class="day-prog-lbl" data-daylbl="tuesday">0 / 0</div></div>
+  </div>
+
+  <div class="callout info" style="margin-bottom:18px"><span class="ct">☀️ Tuesday morning</span>We'll <strong>review the quiz answers together this afternoon</strong>, so complete both modules before then. Watch the full video first — the quizzes track what's covered in each.</div>
+
+  <div class="card">
+    <div class="block-hd"><div class="block-num" style="background:var(--t)">1</div><div><div class="block-ttl">New Hire Training — Module 1</div><div class="block-meta">Video + quiz</div></div></div>
+    <div class="block-body">
+      <div class="vid-embed"><iframe src="https://geneidlabs.sharepoint.com/sites/GeneIDSalesTeam/_layouts/15/embed.aspx?UniqueId=e2f482c5-6c9d-44fe-9d1a-f8ef082e203a&embed=%7B%22ust%22%3Atrue%2C%22hv%22%3A%22CopyEmbedCode%22%7D&referrer=StreamWebApp&referrerScenario=EmbedDialog.Create" allowfullscreen title="GeneID GTS Training — Module 1"></iframe></div><div class="vid-cap">🎬 GeneID GTS Training — Module 1</div>
+      <div class="task" data-task><div class="box">✓</div><div class="txt">Watched <strong>Module 1</strong> in full.</div></div>
+      <div class="quiz-wrap">
+        <div class="quiz-hd" data-quiz><span>📝 Module 1 Quiz</span><span class="qbadge">QUIZ</span><span class="qtoggle">▼</span></div>
+        <div class="quiz-frame-box"><iframe data-src="https://forms.office.com/Pages/ResponsePage.aspx?id=OOZpfoquNkOtGQUerRrk-ov2feeL4ulMhiEb5eG96SFUMlZCSk5DSk5QSDhIV0Q3UjVWWTJZWVoyWiQlQCN0PWcu&embed=true" loading="lazy"></iframe><div class="quiz-fallback">Quiz not loading? <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=OOZpfoquNkOtGQUerRrk-ov2feeL4ulMhiEb5eG96SFUMlZCSk5DSk5QSDhIV0Q3UjVWWTJZWVoyWiQlQCN0PWcu" target="_blank" rel="noopener">Open Module 1 Quiz in a new tab ↗</a></div></div>
+      </div>
+      <div class="task" data-task><div class="box">✓</div><div class="txt">Completed <strong>Module 1 quiz</strong>.</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="block-hd"><div class="block-num" style="background:var(--t)">2</div><div><div class="block-ttl">New Hire Training — Module 2</div><div class="block-meta">Video + quiz</div></div></div>
+    <div class="block-body">
+      <div class="vid-embed"><iframe src="https://geneidlabs.sharepoint.com/sites/GeneIDSalesTeam/_layouts/15/embed.aspx?UniqueId=632cfee3-715a-4524-8de3-be3e55fd5a4b&embed=%7B%22ust%22%3Atrue%2C%22hv%22%3A%22CopyEmbedCode%22%7D&referrer=StreamWebApp&referrerScenario=EmbedDialog.Create" allowfullscreen title="GeneID GTS Training — Module 2"></iframe></div><div class="vid-cap">🎬 GeneID GTS Training — Module 2</div>
+      <div class="task" data-task><div class="box">✓</div><div class="txt">Watched <strong>Module 2</strong> in full.</div></div>
+      <div class="quiz-wrap">
+        <div class="quiz-hd" data-quiz><span>📝 Module 2 Quiz</span><span class="qbadge">QUIZ</span><span class="qtoggle">▼</span></div>
+        <div class="quiz-frame-box"><iframe data-src="https://forms.office.com/Pages/ResponsePage.aspx?id=OOZpfoquNkOtGQUerRrk-ov2feeL4ulMhiEb5eG96SFUMjIxS0lNSFdCUkJZWUhDSFI0MVlLQjVBMSQlQCN0PWcu&embed=true" loading="lazy"></iframe><div class="quiz-fallback">Quiz not loading? <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=OOZpfoquNkOtGQUerRrk-ov2feeL4ulMhiEb5eG96SFUMjIxS0lNSFdCUkJZWUhDSFI0MVlLQjVBMSQlQCN0PWcu" target="_blank" rel="noopener">Open Module 2 Quiz in a new tab ↗</a></div></div>
+      </div>
+      <div class="task" data-task><div class="box">✓</div><div class="txt">Completed <strong>Module 2 quiz</strong>.</div></div>
+    </div>
+  </div>
+
+  <div class="live-card">
+    <div class="live-icon">🎭</div>
+    <div>
+      <div class="lt">Tuesday afternoon — Role-play &amp; Administrative Responsibilities</div>
+      <div class="lm">Live session with <strong>Monique Rivera</strong> (Account Support / Insights Call Center Manager). We'll review your quiz answers, walk through your administrative responsibilities, and run role-play scenarios.</div>
+      <span class="live-time">🕐 Tuesday afternoon · with Monique Rivera</span>
+    </div>
+  </div>
+  <div class="task" data-task><div class="box">✓</div><div class="txt">Attended <strong>role-play &amp; admin responsibilities</strong> session with Monique Rivera.</div></div>
+</div>
+
+<!-- ══ WEDNESDAY ══ -->
+<div class="page" id="p-wednesday">
+  <div class="day-hero" style="background:linear-gradient(135deg,var(--n),var(--o))">
+    <div class="kick">Wednesday</div>
+    <h1>Product &amp; Portfolio Mastery</h1>
+    <div class="sub">The full day on what we sell and how to talk about it — the portfolio, Xenome Academy, how to read each report, and how to sell our programs.</div>
+    <div class="day-prog"><div class="day-prog-outer"><div class="day-prog-inner" data-day="wednesday"></div></div><div class="day-prog-lbl" data-daylbl="wednesday">0 / 0</div></div>
+  </div>
+
+  <!-- 1 Tests + objection -->
+  <div class="card">
+    <div class="block-hd"><div class="block-num" style="background:var(--o)">1</div><div><div class="block-ttl">Tests for Sales Reps &amp; Objection Handling</div><div class="block-meta">Video + quiz</div></div></div>
+    <div class="block-body">
+      <div class="vid-embed"><iframe src="https://geneidlabs.sharepoint.com/sites/GeneIDSalesTeam/_layouts/15/embed.aspx?UniqueId=ea1f86d9-db78-43e0-b793-0678f0255daf&embed=%7B%22ust%22%3Atrue%2C%22hv%22%3A%22CopyEmbedCode%22%7D&referrer=StreamWebApp&referrerScenario=EmbedDialog.Create" allowfullscreen title="Close Every Test in the GeneID Portfolio"></iframe></div><div class="vid-cap">🎬 Close Every Test in the GeneID Portfolio</div>
+      <div class="task" data-task><div class="box">✓</div><div class="txt">Watched <strong>Close Every Test in the GeneID Portfolio</strong>.</div></div>
+      <div class="quiz-wrap">
+        <div class="quiz-hd" data-quiz><span>📝 Tests &amp; Objection Handling Quiz</span><span class="qbadge">QUIZ</span><span class="qtoggle">▼</span></div>
+        <div class="quiz-frame-box"><iframe data-src="https://forms.office.com/Pages/ResponsePage.aspx?id=OOZpfoquNkOtGQUerRrk-q50MnevxhxNmz_ISTcZY-hUOVZWVjJBRjVNU1I1M1k1QUk2WUw2VThYTi4u&embed=true" loading="lazy"></iframe><div class="quiz-fallback">Quiz not loading? <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=OOZpfoquNkOtGQUerRrk-q50MnevxhxNmz_ISTcZY-hUOVZWVjJBRjVNU1I1M1k1QUk2WUw2VThYTi4u" target="_blank" rel="noopener">Open quiz in a new tab ↗</a></div></div>
+      </div>
+      <div class="task" data-task><div class="box">✓</div><div class="txt">Completed the <strong>Tests &amp; Objection Handling quiz</strong>.</div></div>
+      <div class="callout info"><span class="ct">📎 Reference</span>The <strong>Objection Handler</strong> and <strong>Product Quick Reference</strong> tabs in the left menu mirror this content for the field.</div>
+    </div>
+  </div>
+
+  <!-- 2 Xenome Academy -->
+  <div class="card">
+    <div class="block-hd"><div class="block-num" style="background:var(--o)">2</div><div><div class="block-ttl">🔬 Xenome Academy — Whole Exome Sequencing</div><div class="block-meta">3 videos + reps quiz</div></div></div>
+    <div class="block-body">
+      <div style="font-size:12px;font-weight:700;color:var(--o);margin-bottom:8px">a · WES Explained</div>
+      <div class="vid-embed"><iframe src="https://geneidlabs.sharepoint.com/sites/GeneIDSalesTeam/_layouts/15/embed.aspx?UniqueId=43e580a3-ac17-487f-9793-8d0f2740c7e7&embed=%7B%22ust%22%3Atrue%2C%22hv%22%3A%22CopyEmbedCode%22%7D&referrer=StreamWebApp&referrerScenario=EmbedDialog.Create" allowfullscreen title="Whole Exome Sequencing Explained"></iframe></div><div class="vid-cap">🎬 Whole Exome Sequencing Explained</div>
+      <div class="task" data-task><div class="box">✓</div><div class="txt">Watched <strong>WES Explained</strong>.</div></div>
+
+      <div style="font-size:12px;font-weight:700;color:var(--o);margin:14px 0 8px">b · Benefits for a Practice</div>
+      <div class="vid-embed"><iframe src="https://geneidlabs.sharepoint.com/sites/GeneIDSalesTeam/_layouts/15/embed.aspx?UniqueId=f47cf3d2-9de9-4fb1-98e3-ec00c11dbec3&embed=%7B%22ust%22%3Atrue%2C%22hv%22%3A%22CopyEmbedCode%22%7D&referrer=StreamWebApp&referrerScenario=EmbedDialog.Create" allowfullscreen title="Xenome WES — Benefits for Your Practice"></iframe></div><div class="vid-cap">🎬 Xenome WES — Benefits for Your Practice</div>
+      <div class="task" data-task><div class="box">✓</div><div class="txt">Watched <strong>Xenome WES Benefits for Your Practice</strong>.</div></div>
+
+      <div style="font-size:12px;font-weight:700;color:var(--o);margin:14px 0 8px">c · Quiz for Reps</div>
+      <div class="quiz-wrap">
+        <div class="quiz-hd" data-quiz><span>📝 Xenome Quiz for Reps</span><span class="qbadge">QUIZ</span><span class="qtoggle">▼</span></div>
+        <div class="quiz-frame-box"><iframe data-src="https://forms.office.com/Pages/ResponsePage.aspx?id=OOZpfoquNkOtGQUerRrk-q50MnevxhxNmz_ISTcZY-hURTNRREtNSUpCTkZINTgzSlc3MkxRUkZBWC4u&embed=true" loading="lazy"></iframe><div class="quiz-fallback">Quiz not loading? <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=OOZpfoquNkOtGQUerRrk-q50MnevxhxNmz_ISTcZY-hURTNRREtNSUpCTkZINTgzSlc3MkxRUkZBWC4u" target="_blank" rel="noopener">Open Xenome quiz in a new tab ↗</a></div></div>
+      </div>
+      <div class="task" data-task><div class="box">✓</div><div class="txt">Completed the <strong>Xenome reps quiz</strong>.</div></div>
+
+      <div style="font-size:12px;font-weight:700;color:var(--o);margin:14px 0 8px">d · Reading a Whole Exome Report</div>
+      <div class="vid-embed"><iframe src="https://geneidlabs.sharepoint.com/sites/GeneIDSalesTeam/_layouts/15/embed.aspx?UniqueId=2dfabe47-4267-4115-81a3-86dc365fbfd7&embed=%7B%22ust%22%3Atrue%2C%22hv%22%3A%22CopyEmbedCode%22%7D&referrer=StreamWebApp&referrerScenario=EmbedDialog.Create" allowfullscreen title="Read a Xenome WES Report Confidently"></iframe></div><div class="vid-cap">🎬 Read a Xenome WES Report Confidently</div>
+      <div class="task" data-task><div class="box">✓</div><div class="txt">Watched <strong>Reading a Xenome WES Report</strong>.</div></div>
+      <div class="callout warn"><span class="ct">🧠 Field note</span>Xenome's primary focus is <strong>pediatric autism &amp; epilepsy</strong>. ABA therapy practices (BCBAs) are a natural referral partner. All results are reviewed by Dr. Garcia, our Medical Director.</div>
+    </div>
+  </div>
+
+  <!-- 3 PrevenTest reports -->
+  <div class="card">
+    <div class="block-hd"><div class="block-num" style="background:var(--o)">3</div><div><div class="block-ttl">PrevenTest — Criteria &amp; Reports</div><div class="block-meta">2 videos</div></div></div>
+    <div class="block-body">
+      <div style="font-size:12px;font-weight:700;color:var(--o);margin-bottom:8px">a · Eligibility Criteria (NCCN &amp; Carelon)</div>
+      <div class="vid-embed"><iframe src="https://geneidlabs.sharepoint.com/sites/GeneIDSalesTeam/_layouts/15/embed.aspx?UniqueId=40b872f2-157a-436c-8e38-90caac32c9dc&embed=%7B%22ust%22%3Atrue%2C%22hv%22%3A%22CopyEmbedCode%22%7D&referrer=StreamWebApp&referrerScenario=EmbedDialog.Create" allowfullscreen title="NCCN & Carelon PVT Criteria"></iframe></div><div class="vid-cap">🎬 NCCN &amp; Carelon PVT Criteria</div>
+      <div class="task" data-task><div class="box">✓</div><div class="txt">Watched <strong>NCCN &amp; Carelon PVT Criteria</strong> — who qualifies for PrevenTest.</div></div>
+
+      <div style="font-size:12px;font-weight:700;color:var(--o);margin:14px 0 8px">b · Reading a Positive Report</div>
+      <div class="vid-embed"><iframe src="https://geneidlabs.sharepoint.com/sites/GeneIDSalesTeam/_layouts/15/embed.aspx?UniqueId=71b7c16e-44bc-451e-b869-594f69289998&embed=%7B%22ust%22%3Atrue%2C%22hv%22%3A%22CopyEmbedCode%22%7D&referrer=StreamWebApp&referrerScenario=EmbedDialog.Create" allowfullscreen title="Understanding a Positive PrevenTest Report"></iframe></div><div class="vid-cap">🎬 Understanding a Positive PrevenTest Report</div>
+      <div class="task" data-task><div class="box">✓</div><div class="txt">Watched <strong>Understanding a Positive PrevenTest Report</strong>.</div></div>
+    </div>
+  </div>
+
+  <!-- 4 PGx report -->
+  <div class="card">
+    <div class="block-hd"><div class="block-num" style="background:var(--o)">4</div><div><div class="block-ttl">Mastering the PGx Report</div><div class="block-meta">Video</div></div></div>
+    <div class="block-body">
+      <div class="vid-embed"><iframe src="https://geneidlabs.sharepoint.com/sites/GeneIDSalesTeam/_layouts/15/embed.aspx?UniqueId=332ab8e3-867d-4618-b3bc-f368ec5eb054&embed=%7B%22ust%22%3Atrue%2C%22hv%22%3A%22CopyEmbedCode%22%7D&referrer=StreamWebApp&referrerScenario=EmbedDialog.Create" allowfullscreen title="Mastering the PGx Report"></iframe></div><div class="vid-cap">🎬 Mastering the PGx Report</div>
+      <div class="task" data-task><div class="box">✓</div><div class="txt">Watched <strong>Mastering the PGx Report</strong>.</div></div>
+    </div>
+  </div>
+
+  <!-- 5 How to sell -->
+  <div class="card">
+    <div class="block-hd"><div class="block-num" style="background:var(--o)">5</div><div><div class="block-ttl">How to Sell GeneID's Programs</div><div class="block-meta">Video + quiz</div></div></div>
+    <div class="block-body">
+      <div class="vid-embed"><iframe src="https://geneidlabs.sharepoint.com/sites/GeneIDSalesTeam/_layouts/15/embed.aspx?UniqueId=8fda0d7b-e163-4028-941d-594b226f4684&embed=%7B%22ust%22%3Atrue%2C%22hv%22%3A%22CopyEmbedCode%22%7D&referrer=StreamWebApp&referrerScenario=EmbedDialog.Create" allowfullscreen title="Discover Three Tailored Ways to Partner with GeneID"></iframe></div><div class="vid-cap">🎬 Discover Three Tailored Ways to Partner with GeneID</div>
+      <div class="task" data-task><div class="box">✓</div><div class="txt">Watched <strong>Discover Three Tailored Ways to Partner with GeneID</strong> — the GTS, Insights, and Self-Referral models.</div></div>
+      <div class="quiz-wrap">
+        <div class="quiz-hd" data-quiz><span>📝 How to Sell Quiz</span><span class="qbadge">QUIZ</span><span class="qtoggle">▼</span></div>
+        <div class="quiz-frame-box"><iframe data-src="https://forms.office.com/Pages/ResponsePage.aspx?id=OOZpfoquNkOtGQUerRrk-q50MnevxhxNmz_ISTcZY-hUNEE5QkkxT0RSNVdYUzZEQ1FXVkdMTEJBVC4u&embed=true" loading="lazy"></iframe><div class="quiz-fallback">Quiz not loading? <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=OOZpfoquNkOtGQUerRrk-q50MnevxhxNmz_ISTcZY-hUNEE5QkkxT0RSNVdYUzZEQ1FXVkdMTEJBVC4u" target="_blank" rel="noopener">Open quiz in a new tab ↗</a></div></div>
+      </div>
+      <div class="task" data-task><div class="box">✓</div><div class="txt">Completed the <strong>How to Sell quiz</strong>.</div></div>
+      <div class="callout action"><span class="ct">📽️ Practice with the deck</span>The <strong>Physician Meeting Deck</strong> (left menu) is the exact 5-slide flow you'll present in offices — with speaker notes. Run through it while this section is fresh.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ THURSDAY ══ -->
+<div class="page" id="p-thursday">
+  <div class="day-hero" style="background:linear-gradient(135deg,var(--n),var(--hs))">
+    <div class="kick">Thursday</div>
+    <h1>HubSpot &amp; Pipeline</h1>
+    <div class="sub">Morning: HubSpot workflow training + live session with Jessica Subirats. Afternoon: build your first-week pipeline with 30 prospecting targets.</div>
+    <div class="day-prog"><div class="day-prog-outer"><div class="day-prog-inner" data-day="thursday"></div></div><div class="day-prog-lbl" data-daylbl="thursday">0 / 0</div></div>
+  </div>
+
+  <div class="card">
+    <div class="block-hd"><div class="block-num" style="background:var(--hs)">1</div><div><div class="block-ttl">HubSpot Workflow Training</div><div class="block-meta">Thursday morning · video</div></div></div>
+    <div class="block-body">
+      <div class="vid-embed"><iframe src="https://geneidlabs.sharepoint.com/sites/GeneIDSalesTeam/_layouts/15/embed.aspx?UniqueId=690ef495-9f41-432c-b631-3392612af02f&embed=%7B%22ust%22%3Atrue%2C%22hv%22%3A%22CopyEmbedCode%22%7D&referrer=StreamWebApp&referrerScenario=EmbedDialog.Create" allowfullscreen title="Master GeneID HubSpot Workflow"></iframe></div><div class="vid-cap">🎬 Master GeneID HubSpot Workflow</div>
+      <div class="task" data-task><div class="box">✓</div><div class="txt">Watched <strong>Master GeneID HubSpot Workflow</strong> before the live session.</div></div>
+    </div>
+  </div>
+
+  <div class="live-card" style="background:linear-gradient(135deg,var(--t),var(--tm))">
+    <div class="live-icon">💻</div>
+    <div>
+      <div class="lt">Live HubSpot Session with Jessica Subirats</div>
+      <div class="lm">Walk through the GeneID Sales Team pipeline, deal records, playbooks, and stage automations live. Come with the workflow video already watched and your questions ready.</div>
+      <span class="live-time">🕐 Thursday · 12:00 PM Central Time</span>
+    </div>
+  </div>
+  <div class="task" data-task><div class="box">✓</div><div class="txt">Attended the <strong>live HubSpot session</strong> with Jessica Subirats (noon CT).</div></div>
+
+  <div class="card">
+    <div class="block-hd"><div class="block-num" style="background:var(--hs)">2</div><div><div class="block-ttl">Build Your First-Week Pipeline</div><div class="block-meta">Thursday afternoon · 30 prospecting targets</div></div></div>
+    <div class="block-body">
+      <div class="callout action"><span class="ct">🎯 Your goal</span>Create your pipeline for your first week in the field with <strong>30 prospecting targets</strong>. For each target, verify and record the details below.</div>
+      <div style="font-weight:700;color:var(--n);font-size:13px;margin:4px 0 4px">Verify for each target:</div>
+      <div class="prep-grid">
+        <div class="prep-item"><div class="pv"># Patients</div><div class="pl">Daily patient volume — 20+ minimum for GTS viability</div></div>
+        <div class="prep-item"><div class="pv">% BCBS</div><div class="pl">Blue Cross Blue Shield share of the panel</div></div>
+        <div class="prep-item"><div class="pv">Payer Mix</div><div class="pl">Top insurances — PPO required outside TX</div></div>
+        <div class="prep-item"><div class="pv">% 18–50</div><div class="pl">Reproductive-age share — carrier &amp; PrevenTest fit</div></div>
+        <div class="prep-item"><div class="pv">Office Managers</div><div class="pl">Name and best contact for each practice</div></div>
+        <div class="prep-item"><div class="pv">Decision Makers</div><div class="pl">Who actually signs off — provider, OM, or both</div></div>
+      </div>
+      <div class="task" data-task><div class="box">✓</div><div class="txt">Built pipeline with <strong>30 prospecting targets</strong> in HubSpot.</div></div>
+      <div class="task" data-task><div class="box">✓</div><div class="txt">Verified <strong>demographics</strong> (# patients, % BCBS, payer mix, % 18–50) for each target.</div></div>
+      <div class="task" data-task><div class="box">✓</div><div class="txt">Captured <strong>office managers</strong> and <strong>main decision makers</strong> for each.</div></div>
+      <div class="callout warn"><span class="ct">⚠️ Remember</span>All states except Texas can only test <strong>PPO patients</strong>. Confirm insurance type as you qualify each target.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ FRIDAY ══ -->
+<div class="page" id="p-friday">
+  <div class="day-hero" style="background:linear-gradient(135deg,var(--n),var(--p))">
+    <div class="kick">Friday</div>
+    <h1>Readiness &amp; Role-Play</h1>
+    <div class="sub">Morning: identify where you feel weakest and role-play your pitch with your manager. Afternoon: prep everything for Monday in the field.</div>
+    <div class="day-prog"><div class="day-prog-outer"><div class="day-prog-inner" data-day="friday"></div></div><div class="day-prog-lbl" data-daylbl="friday">0 / 0</div></div>
+  </div>
+
+  <div class="card">
+    <div class="block-hd"><div class="block-num" style="background:var(--p)">1</div><div><div class="block-ttl">Identify Your Weak Spots</div><div class="block-meta">Friday morning · before 10:30 AM CT</div></div></div>
+    <div class="block-body">
+      <div class="task" data-task><div class="box">✓</div><div class="txt">Identified the <strong>key areas you feel weakest in</strong> — products, objections, HubSpot, pitch delivery — to bring to your manager.</div></div>
+      <div class="callout info"><span class="ct">💡 Be specific</span>"I'm shaky on PGx objections" or "I want to rehearse the ACA $0 close" gives your manager something concrete to coach. Vague = less useful.</div>
+    </div>
+  </div>
+
+  <div class="live-card">
+    <div class="live-icon">🎤</div>
+    <div>
+      <div class="lt">Role-Play Pitch with Your Manager</div>
+      <div class="lm">Bring your weak-spot list and run your pitch live. This is a safe space to fumble — better here than in front of a provider Monday.</div>
+      <span class="live-time">🕐 Friday · 10:30 AM Central Time</span>
+    </div>
+  </div>
+  <div class="task" data-task><div class="box">✓</div><div class="txt">Completed <strong>role-play pitch</strong> session with manager (10:30 AM CT).</div></div>
+
+  <div class="card">
+    <div class="block-hd"><div class="block-num" style="background:var(--p)">2</div><div><div class="block-ttl">Prep for Your First Week in the Field</div><div class="block-meta">Friday afternoon</div></div></div>
+    <div class="block-body">
+      <div class="task" data-task><div class="box">✓</div><div class="txt">Confirmed you have <strong>all sales resources</strong> to support your meetings — brochures, folders, one-pagers, tablet/laptop with the meeting deck.</div></div>
+      <div class="task" data-task><div class="box">✓</div><div class="txt">Planned your <strong>route</strong> for Monday with <strong>top targets prioritized</strong>.</div></div>
+      <div class="callout action"><span class="ct">📂 Sales resources</span>All sales brochures live in the GeneID Sales Team Teams folder. The <strong>Physician Meeting Deck</strong>, <strong>Product Quick Reference</strong>, and <strong>Objection Handler</strong> tabs here are ready for the field.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ FIELD LAUNCH ══ -->
+<div class="page" id="p-field">
+  <div class="day-hero" style="background:linear-gradient(135deg,var(--gn),var(--t))">
+    <div class="kick">The Following Monday</div>
+    <h1>🚀 Start in the Field</h1>
+    <div class="sub">You've done the work. Show up, lead with value, and always leave with a next step scheduled.</div>
+  </div>
+  <div class="card" style="padding:22px 26px">
+    <div style="font-size:15px;color:#333;line-height:1.8;margin-bottom:16px">This is it — your first day in the field. Everything from this week comes together now. A few reminders as you head out:</div>
+    <div class="pt"><span style="color:var(--gn);font-weight:800">→</span><span>The majority of your sales interactions should be <strong>in person</strong>. Showing up is what builds trust.</span></div>
+    <div class="pt"><span style="color:var(--gn);font-weight:800">→</span><span>You're <strong>not selling a test</strong> — you're helping providers identify at-risk patients before symptoms appear. Lead with stats, not products.</span></div>
+    <div class="pt"><span style="color:var(--gn);font-weight:800">→</span><span><strong>Always leave with a follow-up scheduled.</strong> Never leave without a next step.</span></div>
+    <div class="pt"><span style="color:var(--gn);font-weight:800">→</span><span>Log every touch in HubSpot — <strong>moving the deal stage is what fires all the automations.</strong></span></div>
+    <div class="pt"><span style="color:var(--gn);font-weight:800">→</span><span>The close: <em>"To get started, all I need is the new account paperwork signed — the BAA and enrollment form."</em></span></div>
+    <div class="callout info" style="margin-top:16px;font-style:italic"><span class="ct">🌟 From Jessica</span>"Good luck! I'm here to support your success, every step of the way."</div>
+  </div>
+</div>
+
+<!-- ══ MEETING DECK ══ -->
+<div class="page" id="p-deck">
+  <h2 class="ph">📽️ Physician Meeting Deck</h2>
+  <p class="sub-head">The 5-slide flow you present in offices — each with speaker notes. Practice this until it's second nature.</p>
+  <div class="slide-nav">
+    <button class="slide-btn" id="deckPrev" style="background:#fff;color:var(--n)">← Prev</button>
+    <div id="deckCounter" style="font-weight:700;color:var(--n)"></div>
+    <button class="slide-btn" id="deckNext" style="background:var(--t);color:#fff;border-color:var(--t)">Next →</button>
+  </div>
+  <div class="deck-slide" id="deckSlide"></div>
+  <div style="background:var(--n);border-radius:10px;padding:16px 20px">
+    <div style="color:var(--g);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:1px;margin-bottom:7px">🎤 Speaker Notes</div>
+    <div id="deckNotes" style="color:rgba(255,255,255,.85);font-size:13px;line-height:1.75;font-style:italic"></div>
+  </div>
+</div>
+
+<!-- ══ PRODUCTS ══ -->
+<div class="page" id="p-products">
+  <h2 class="ph">💊 Product Quick Reference</h2>
+  <p class="sub-head">The five tests plus GeneID Insights — the facts you use in the field.</p>
+  <div id="prodRefContent"></div>
+</div>
+
+<!-- ══ OBJECTIONS ══ -->
+<div class="page" id="p-objections">
+  <h2 class="ph">🛡️ Objection Handler</h2>
+  <p class="sub-head">Ready responses to the most common provider objections. Never trash competitors · always lead with empathy · always offer a follow-up demo.</p>
+  <div id="objRefContent"></div>
+</div>
+
+<!-- ══ CONTACTS ══ -->
+<div class="page" id="p-contacts">
+  <h2 class="ph">📞 Key Contacts</h2>
+  <p class="sub-head">Who to reach for what during your first week and beyond.</p>
+  <div id="contactsContent"></div>
+</div>
+
+</div><!-- #main -->
+</div><!-- #shell -->
+
+<script>
+var T='#0a7c6e',TD='#065a50',TL='#e6f4f1',N='#0d2b3e',G='#f0a500',W='#fff',GR='#f7fafa';
+var P='#5a3e8e',GN='#2d7a4f',O='#c05000',R='#c0392b',PK='#b5436a',HS='#ff7a59';
+var STORE_KEY='geneid_sam_hub_progress_v1';
+
+/* ---- safe storage (works deployed; degrades gracefully in previews) ---- */
+function loadProgress(){try{var r=localStorage.getItem(STORE_KEY);return r?JSON.parse(r):{};}catch(e){return window.__samProg||{};}}
+function saveProgress(p){try{localStorage.setItem(STORE_KEY,JSON.stringify(p));}catch(e){window.__samProg=p;}}
+var progress=loadProgress();
+
+/* ---- tab navigation ---- */
+function showTab(id){
+  document.querySelectorAll('.page').forEach(function(p){p.classList.remove('on');});
+  var pg=document.getElementById('p-'+id);if(pg)pg.classList.add('on');
+  document.querySelectorAll('.nav-item').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-tab')===id);});
+  var el=document.getElementById('main');if(el)el.scrollTop=0;window.scrollTo(0,0);
+  if(id==='deck')renderSlide(deckCur);
+}
+document.querySelectorAll('.nav-item').forEach(function(b){b.addEventListener('click',function(){showTab(b.getAttribute('data-tab'));});});
+
+/* ---- assign stable IDs to every task, wire checkboxes ---- */
+var dayPages=['monday','tuesday','wednesday','thursday','friday'];
+function taskId(el){return el.getAttribute('data-taskid');}
+(function initTasks(){
+  dayPages.forEach(function(day){
+    var page=document.getElementById('p-'+day);if(!page)return;
+    var tasks=page.querySelectorAll('[data-task]');
+    tasks.forEach(function(t,i){
+      var tid=day+'_'+i;t.setAttribute('data-taskid',tid);t.setAttribute('data-day',day);
+      if(progress[tid]){t.classList.add('done');}
+      t.addEventListener('click',function(){
+        var done=t.classList.toggle('done');
+        progress[tid]=done;saveProgress(progress);updateAllProgress();
+      });
+    });
+  });
+  updateAllProgress();
+})();
+
+/* ---- progress calculations ---- */
+function dayCounts(day){
+  var page=document.getElementById('p-'+day);if(!page)return{done:0,total:0};
+  var tasks=page.querySelectorAll('[data-task]');var done=0;
+  tasks.forEach(function(t){if(t.classList.contains('done'))done++;});
+  return{done:done,total:tasks.length};
+}
+function updateAllProgress(){
+  var grandDone=0,grandTotal=0;
+  dayPages.forEach(function(day){
+    var c=dayCounts(day);grandDone+=c.done;grandTotal+=c.total;
+    var pct=c.total?Math.round(c.done/c.total*100):0;
+    var inner=document.querySelector('.day-prog-inner[data-day="'+day+'"]');
+    if(inner)inner.style.width=pct+'%';
+    var lbl=document.querySelector('.day-prog-lbl[data-daylbl="'+day+'"]');
+    if(lbl)lbl.textContent=c.done+' / '+c.total+' complete';
+    var mini=document.querySelector('.hmini span[data-mini="'+day+'"]');
+    if(mini)mini.style.width=pct+'%';
+    var navChk=document.querySelector('.nav-item[data-tab="'+day+'"] .nav-check');
+    if(navChk)navChk.textContent=(c.total&&c.done===c.total)?'✓':'';
+  });
+  var gp=grandTotal?Math.round(grandDone/grandTotal*100):0;
+  document.getElementById('topProgBar').style.width=gp+'%';
+  document.getElementById('topProgLbl').textContent=gp+'%';
+}
+
+/* ---- quiz expand/collapse (lazy-load iframe) ---- */
+document.querySelectorAll('[data-quiz]').forEach(function(hd){
+  hd.addEventListener('click',function(){
+    var box=hd.nextElementSibling;var open=box.style.display==='block';
+    box.style.display=open?'none':'block';
+    hd.querySelector('.qtoggle').textContent=open?'▼':'▲';
+    if(!open){var f=box.querySelector('iframe');if(f&&!f.src&&f.getAttribute('data-src'))f.src=f.getAttribute('data-src');}
+  });
+});
+
+/* ---- HOME hero tiles ---- */
+(function(){
+  var tiles=[
+    {day:'MON',t:'Get Set Up',d:'Compliance, HIPAA & Canvas modules',tab:'monday',c:N,key:'monday'},
+    {day:'TUE',t:'Core Training',d:'Modules 1 & 2 + role-play with Monique',tab:'tuesday',c:T,key:'tuesday'},
+    {day:'WED',t:'Product & Portfolio',d:'Portfolio, Xenome, reports, how to sell',tab:'wednesday',c:O,key:'wednesday'},
+    {day:'THU',t:'HubSpot & Pipeline',d:'Workflow + build 30-target pipeline',tab:'thursday',c:HS,key:'thursday'},
+    {day:'FRI',t:'Readiness & Role-Play',d:'Weak spots, pitch practice, route prep',tab:'friday',c:P,key:'friday'},
+    {day:'MON',t:'Field Launch',d:'Your first day in the field',tab:'field',c:GN,key:null}
+  ];
+  var g=document.getElementById('heroGrid');
+  tiles.forEach(function(tile){
+    var d=document.createElement('div');d.className='hero-tile';d.style.borderLeftColor=tile.c;
+    var mini=tile.key?'<div class="hmini"><span data-mini="'+tile.key+'"></span></div>':'';
+    d.innerHTML='<div class="hday" style="color:'+tile.c+'">'+tile.day+'</div><div class="htt">'+tile.t+'</div><div class="htd">'+tile.d+'</div>'+mini;
+    d.onclick=function(){showTab(tile.tab);};g.appendChild(d);
+  });
+})();
+
+/* ---- MEETING DECK (ported from Sales Hub) ---- */
+var slides=[
+  {type:'title',title:'Transforming Preventative Care\nThrough Genetic Medicine',subtitle:'A Practice Partnership Proposal',notes:'Open with: "In the last year, how many of your patients have you been able to proactively screen for hereditary cancer risk?" Let silence sit.'},
+  {type:'stat',title:'The Preventative Medicine Gap',stats:[{v:'5–10%',l:'of cancers are hereditary',c:R},{v:'25%',l:'of patients are carriers for a serious inherited condition',c:'#2980b9'},{v:'75%+',l:'of people metabolize medications outside of "normal"',c:GN},{v:'Stage 4',l:'when most hereditary cancers are finally discovered',c:TD}],notes:'Pause on the first stat — lead with hereditary cancer prevalence, then connect it to your patients having no idea they carry a mutation.'},
+  {type:'solution',title:'The GeneID Model: We Handle the Complexity',pillars:[{ic:'👩‍⚕️',t:'In-Office Specialist',d:'Our GTS works between the MA and provider.'},{ic:'✅',t:'Verification-First Billing',d:'No test runs without insurance approval.'},{ic:'💳',t:'ACA BRCA1/2 Mandate',d:'Qualifying patients pay $0 — no deductible, no copay.'},{ic:'🤖',t:'AI Patient ID',d:'Insights generates a report of eligible patients from your EMR.'},{ic:'👨‍⚕️',t:'Medical Director Oversight',d:'Dr. Garcia reviews all positives.'},{ic:'💻',t:'Proprietary Screening Software',d:'GetGeneID has NCCN, ACOG, and insurance criteria built in.'}],notes:'Walk each pillar and ask "which of these would make the biggest difference for your practice?"'},
+  {type:'proof',title:'Real Results from a Real Practice',headline:'176 patients screened. 15 weeks.',metrics:[{v:'9',l:'Hereditary cancer risk patients identified',c:R},{v:'4',l:'Carrier status positives found',c:'#2980b9'},{v:'7',l:'Medicare PGx patients enrolled',c:G},{v:'176',l:'Total patients screened',c:T}],insight:'A zero-cost, zero-burden program that identified patients who might otherwise have gone undetected.',notes:'Let the numbers land. Then: "Based on your panel size, how many patients do you think might benefit?"'},
+  {type:'close',title:'The Question Worth Asking',question:'If patients in your panel had a hereditary cancer mutation right now — would you want to know?',subtext:'GeneID exists to make sure you can answer yes.',notes:'Read the question out loud. Let it sit. Then: "To get started, all I need is the new account paperwork signed."'}
+];
+var deckCur=0;
+function renderSlide(i){
+  var s=slides[i];var inner='';
+  if(s.type==='title'){inner='<div style="background:linear-gradient(135deg,'+N+','+TD+');border-radius:12px;padding:38px 44px;min-height:270px;display:flex;flex-direction:column;justify-content:center"><div style="font-size:32px;font-weight:900;color:#fff;margin:0 0 12px;line-height:1.15;white-space:pre-line">'+s.title+'</div><div style="font-size:16px;color:rgba(255,255,255,.7);margin-bottom:22px">'+s.subtitle+'</div><div style="display:flex;gap:8px;flex-wrap:wrap">'+['CLIA Certified','CAP Accredited','CMS Laboratory','Founded 2012'].map(function(b){return'<span style="background:rgba(255,255,255,.12);color:#fff;font-size:11px;font-weight:700;padding:5px 12px;border-radius:20px">'+b+'</span>';}).join('')+'</div></div>';}
+  else if(s.type==='stat'){inner='<h2 style="font-size:22px;font-weight:900;color:'+N+';margin-bottom:16px;text-align:center">'+s.title+'</h2><div class="g2">'+s.stats.map(function(st){return'<div style="background:#fff;border-top:4px solid '+st.c+';border-radius:10px;padding:20px;text-align:center"><div style="font-size:36px;font-weight:900;color:'+st.c+';line-height:1">'+st.v+'</div><div style="font-size:13px;color:'+N+';font-weight:600;margin-top:8px;line-height:1.4">'+st.l+'</div></div>';}).join('')+'</div>';}
+  else if(s.type==='solution'){inner='<h2 style="font-size:20px;font-weight:900;color:'+N+';margin-bottom:14px;text-align:center">'+s.title+'</h2><div class="g3">'+s.pillars.map(function(p){return'<div style="background:#fff;border:1px solid #d0e8e3;border-radius:9px;padding:14px;text-align:center"><div style="font-size:24px;margin-bottom:6px">'+p.ic+'</div><div style="font-weight:800;color:'+N+';font-size:12px;margin-bottom:4px">'+p.t+'</div><div style="color:#4a6a6a;font-size:11px;line-height:1.5">'+p.d+'</div></div>';}).join('')+'</div>';}
+  else if(s.type==='proof'){inner='<h2 style="font-size:20px;font-weight:900;color:'+N+';margin-bottom:4px;text-align:center">'+s.title+'</h2><div style="text-align:center;font-size:14px;color:'+TD+';font-weight:700;margin-bottom:14px">'+s.headline+'</div><div class="g4" style="margin-bottom:14px">'+s.metrics.map(function(m){return'<div style="background:#fff;border-top:4px solid '+m.c+';border-radius:9px;padding:14px;text-align:center"><div style="font-size:32px;font-weight:900;color:'+m.c+';line-height:1">'+m.v+'</div><div style="color:'+N+';font-weight:600;font-size:11px;margin-top:5px;line-height:1.4">'+m.l+'</div></div>';}).join('')+'</div><div style="background:'+N+';border-radius:9px;padding:12px 18px;text-align:center"><div style="color:'+G+';font-size:13px;font-weight:700">'+s.insight+'</div></div>';}
+  else if(s.type==='close'){inner='<div style="background:linear-gradient(135deg,'+N+','+TD+');border-radius:12px;padding:34px;text-align:center;margin-bottom:14px"><div style="font-size:22px;font-weight:900;color:#fff;line-height:1.35;margin-bottom:10px">'+s.question+'</div><div style="font-size:14px;color:rgba(255,255,255,.7)">'+s.subtext+'</div></div><div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">'+['GeneIDLab.com','(201) 825-0186','CLIA Certified','CAP Accredited'].map(function(a){return'<span style="background:'+TL+';color:'+TD+';font-size:12px;font-weight:700;padding:7px 16px;border-radius:20px">'+a+'</span>';}).join('')+'</div>';}
+  document.getElementById('deckSlide').innerHTML=inner;
+  document.getElementById('deckNotes').textContent=s.notes;
+  document.getElementById('deckCounter').textContent='Slide '+(i+1)+' of '+slides.length;
+  document.getElementById('deckPrev').disabled=i===0;
+  document.getElementById('deckNext').disabled=i===slides.length-1;
+}
+document.getElementById('deckPrev').onclick=function(){if(deckCur>0){deckCur--;renderSlide(deckCur);}};
+document.getElementById('deckNext').onclick=function(){if(deckCur<slides.length-1){deckCur++;renderSlide(deckCur);}};
+renderSlide(0);
+
+/* ---- PRODUCT QUICK REFERENCE ---- */
+(function(){
+  var prods=[
+    {n:'PrevenTest™ — Hereditary Cancer',c:P,pts:['36+ cancer genes across 8 cancer types','ACA mandates BRCA1/2 at $0 cost-sharing for qualifying patients','~10% of patients test positive with an actionable result','Self-pay: $999, interest-free plans available'],who:'Personal/family history of breast, ovarian, pancreatic, colorectal, endometrial, gastric, melanoma, or prostate cancer'},
+    {n:'NewbornGeneID™ — Carrier Screening',c:PK,pts:['68+ recessive conditions — CF, SMA, sickle cell, Tay-Sachs','ACOG & ACMG recommend for ALL reproductive-age adults','1 in 4 are carriers; 80% have no family history','Self-pay: $249'],who:'All patients 18–50, planning/expanding a family, currently pregnant'},
+    {n:'Pharmacogenomics — PGx',c:GN,pts:['Tests drug metabolism: Poor / Intermediate / Normal / Ultra-Rapid','4 panels: Cardiovascular, Psych, Pain/Neuro, Other','ADRs = 4th leading cause of death in the US','Medicare patients get automatic pharmacist referral · Self-pay: $300'],who:'Patients on chronic/multiple meds, side effects, poor response, or starting new therapy'},
+    {n:'Envisage GeneID™ — NIPT',c:G,pts:['Results in 3–7 days · from 10 weeks gestation','T21, T18, T13, sex chromosomes + gender','ACOG recommends NIPT be offered to ALL pregnant patients','Single blood draw · Self-pay: $300'],who:'All pregnant patients, regardless of age or baseline risk'},
+    {n:'Xenome™ — Whole Exome Sequencing',c:O,pts:['~20,000 protein-coding genes in one test','Primary focus: pediatric autism & epilepsy','Solo / duo / trio (trio +15–20% yield)','All results reviewed by Dr. Garcia · 6–8 wk turnaround'],who:'Pediatric ASD, epilepsy, developmental delay, undiagnosed conditions after negative panels'},
+    {n:'GeneID Insights — AI EMR Platform',c:T,pts:['Scans EMR by ICD-10, meds & risk factors to flag eligible patients','Same-day setup, no IT integration','Branded co-marketing — outreach uses the practice\'s name','12-mo contract, 90-day trial, $199/mo after · provider approves every list'],who:'Any practice with an EMR and 500+ patient panel; ideal add-on for GTS accounts'}
+  ];
+  var html='<div class="qr-grid">';
+  prods.forEach(function(p){
+    html+='<div class="qr-card" style="border-top-color:'+p.c+'"><div class="qrt" style="color:'+p.c+'">'+p.n+'</div>';
+    p.pts.forEach(function(pt){html+='<div class="pt"><span style="color:'+p.c+';font-weight:700;flex-shrink:0">✓</span><span>'+pt+'</span></div>';});
+    html+='<div style="margin-top:8px;padding-top:8px;border-top:1px solid #eef3f2;font-size:11px;color:#5a7a7a"><strong style="color:'+p.c+'">Who to refer:</strong> '+p.who+'</div></div>';
+  });
+  html+='</div>';
+  html+='<div class="card" style="margin-top:16px;overflow:hidden"><div style="background:'+T+';padding:11px 18px;color:#fff;font-weight:800;font-size:14px">🤖 GeneID Insights — Account Info &amp; Onboarding</div><div style="padding:16px 18px"><div style="font-size:12.5px;color:#444;line-height:1.6;margin-bottom:12px">12-month software agreement with a 90-day trial · $199/month after (~$6/day) · 30-day cancellation. The algorithm scans the practice EMR (ICD-10, meds, risk factors) against NCCN, ACOG, FDA &amp; CPIC criteria and generates a patient report — <strong>the provider approves every list before any outreach begins.</strong> Patient outreach is co-branded with the practice\'s name.</div><div class="vid-embed"><iframe src="https://geneidlabs.sharepoint.com/sites/GeneIDSalesTeam/_layouts/15/embed.aspx?UniqueId=2b56d876-fe00-48e5-a138-f42ec77637c2&embed=%7B%22ust%22%3Atrue%2C%22hv%22%3A%22CopyEmbedCode%22%7D&referrer=StreamWebApp&referrerScenario=EmbedDialog.Create" allowfullscreen title="GeneID Insights Onboarding Workflow"></iframe></div><div class="vid-cap">🎬 GeneID Insights Onboarding Workflow</div></div></div>';
+  html+='<div class="card" style="padding:18px;margin-top:16px"><div style="font-weight:800;color:'+N+';font-size:14px;margin-bottom:12px">⚡ Numbers to Use in Every Conversation</div><div class="stat-grid">'+[['98%','of patients pay $0 out of pocket'],['ACA','mandates BRCA1/2 at $0 cost-sharing'],['1 in 4','patients are genetic carriers'],['90%','of tests approved'],['30 sec','mouthwash — no blood draw'],['No balance','billing — an EOB is not a bill']].map(function(s){return'<div class="stat-box"><div class="val">'+s[0]+'</div><div class="lbl">'+s[1]+'</div></div>';}).join('')+'</div><div class="callout warn" style="margin-top:12px"><span class="ct">🔒 GINA Act</span>Genetic results CANNOT be used to affect a patient\'s health insurance. (GINA does not cover life, disability, or long-term care insurance.)</div></div>';
+  document.getElementById('prodRefContent').innerHTML=html;
+})();
+
+/* ---- OBJECTION HANDLER ---- */
+(function(){
+  var objections=[
+    {q:'"We already work with Myriad / Natera / Ambry."',a:'Great — those are solid labs. What GeneID brings is different: a fully supported, turnkey in-office program. We put a certified GTS in your office and handle all prior authorizations, insurance verification, and patient outreach — at no cost to your practice.',tag:'Competitor',c:R},
+    {q:'"My patients can\'t afford genetic testing."',a:'Under the ACA, BRCA1/2 testing is a mandated preventive benefit — qualifying patients pay $0, no deductible, no copay. We never run any test without insurance approval first. Zero surprise bills, ever.',tag:'Cost',c:O},
+    {q:'"I don\'t have time or staff bandwidth."',a:'Our GTS works in your office between the MA and provider visit — a gap that already exists in the workflow. Zero new workflow for your team.',tag:'Workflow',c:T},
+    {q:'"I\'m not sure which patients qualify."',a:'Our GTS uses GetGeneID, our proprietary screening software with NCCN, ACOG, and insurance criteria built in.',tag:'Criteria',c:N},
+    {q:'"I don\'t know how to handle positive results."',a:'Every positive is reviewed by Dr. Garcia, our Medical Director, who coordinates genetic counseling for every positive finding. You\'re never alone with results.',tag:'Results',c:P},
+    {q:'"How accurate are your tests?"',a:'We use advanced NGS technology, and Dr. Garcia personally reviews all findings before release.',tag:'Accuracy',c:TD},
+    {q:'"What\'s the legal commitment?"',a:'Minimal — just a BAA and a New Client Form, standard HIPAA documents. No exclusivity contract, no cost to start.',tag:'Legal',c:'#7f8c8d'},
+    {q:'"We tried genetic testing before and it was a headache."',a:'That\'s usually because the lab handed you the complexity without the support. Tell me what broke down — I\'ll show you how we handle exactly that.',tag:'Past Exp.',c:R},
+    {q:'"What does this actually do for my practice?"',a:'Positive results drive meaningful follow-up, and Medicare PGx patients automatically receive a billable pharmacist referral. It positions you as a proactive, preventative-care practice.',tag:'Practice Value',c:G}
+  ];
+  var html='';
+  objections.forEach(function(o,i){
+    html+='<div style="margin-bottom:8px"><div class="obj-q" onclick="var a=document.getElementById(\'oa'+i+'\');a.style.display=a.style.display===\'block\'?\'none\':\'block\'"><span><span style="background:'+o.c+';color:#fff;font-size:9px;font-weight:700;padding:2px 8px;border-radius:12px;margin-right:8px">'+o.tag+'</span>'+o.q+'</span><span style="color:'+T+'">▾</span></div><div class="obj-a" id="oa'+i+'"><span style="display:block;font-weight:700;color:'+T+';font-size:10px;text-transform:uppercase;letter-spacing:1px;margin-bottom:5px">Response</span>'+o.a+'</div></div>';
+  });
+  html+='<div class="callout info" style="margin-top:16px"><span class="ct">✅ Always close with</span>"When would be a good time to schedule a demo so you can see the GetGeneID screening platform in action?"</div>';
+  document.getElementById('objRefContent').innerHTML=html;
+})();
+
+/* ---- CONTACTS ---- */
+(function(){
+  var groups=[
+    {t:'Your Training Week',c:P,rows:[['Jessica Subirats','Regional VP of Sales — HubSpot session (Thu noon CT), Friday role-play','jessica.subirats@geneidlab.com · (713) 208-1986'],['Monique Rivera','Account Support / Insights Call Center Mgr — Tue role-play & admin','monique.rivera@geneidlab.com'],['Dr. Garcia','Medical Director — clinical results consultation','Via manager or portal']]},
+    {t:'Patient & Referral Support',c:T,rows:[['Patient Support','Referrals & patient journey','patient.support@geneidlab.com · (973) 284-7560'],['Secure eFax','Referral packets','(908) 791-5402'],['Case Managers','Lina & Nurit','Lina.Ruidaz@geneidlab.com · Nurit@geneidlab.com']]},
+    {t:'Operations & Admin',c:GN,rows:[['Billing / HR / Test Corrections','Cheryl','cheryl@geneidlab.com'],['Lab Phone','Main line','(201) 825-0186'],['Sales Email','Team inbox','sales@geneidlab.com'],['Website / Address','GeneIDLab.com','136 Summit Ave, Montvale, NJ 07645']]}
+  ];
+  var html='';
+  groups.forEach(function(g){
+    html+='<div class="card" style="overflow:hidden"><div style="background:'+g.c+';padding:11px 18px;color:#fff;font-weight:800;font-size:14px">'+g.t+'</div><div style="padding:8px 18px">';
+    g.rows.forEach(function(r){html+='<div style="display:grid;grid-template-columns:200px 1fr;gap:12px;padding:10px 0;border-bottom:1px solid #f0f0f0"><div style="font-weight:700;color:'+N+';font-size:13px">'+r[0]+'<div style="font-weight:400;color:#7a9a9a;font-size:11px;margin-top:2px">'+r[1]+'</div></div><div style="font-size:12.5px;color:#444;align-self:center">'+r[2]+'</div></div>';});
+    html+='</div></div>';
+  });
+  html+='<div class="card" style="padding:16px 18px"><div style="font-weight:800;color:'+N+';font-size:13px;margin-bottom:8px">📂 Sales Resources</div><a href="https://geneidlabs.sharepoint.com/:f:/s/GeneIDSalesTeam/IgAtb2qcM-G1TI85EUZyqZDyAdwkDjyURgpgGrQ4wuouQik?e=Cnryq3" target="_blank" rel="noopener" style="color:'+T+';font-weight:600;font-size:13px">🔗 All Sales Brochures — Teams Folder ↗</a></div>';
+  document.getElementById('contactsContent').innerHTML=html;
+})();
+
+/* ---- optional full reset (double-click the top progress label) ---- */
+document.getElementById('topProgLbl').title='Double-click to reset all progress';
+document.getElementById('topProgLbl').addEventListener('dblclick',function(){
+  if(confirm('Reset all your training progress? This clears every checkbox.')){
+    progress={};saveProgress(progress);
+    document.querySelectorAll('.task.done').forEach(function(t){t.classList.remove('done');});
+    updateAllProgress();
+  }
+});
+
+showTab('home');
+</script>
+</body>
+</html>
