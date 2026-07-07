@@ -73,6 +73,13 @@ h2.ph{font-size:22px;font-weight:900;color:var(--n);margin-bottom:4px}
 .vid-badge.soon{background:rgba(240,165,0,.2);color:#ffcf6b}
 .vid-arrow{margin-left:auto;color:rgba(255,255,255,.4);font-size:18px}
 .vid-embed{position:relative;padding-top:56.25%;border-radius:11px;overflow:hidden;margin-bottom:6px;background:#0d2b3e;box-shadow:0 3px 12px rgba(13,43,62,.18)}.vid-embed iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none}.vid-cap{font-size:11px;color:#7a9a9a;font-weight:600;margin:0 0 12px;padding-left:2px}
+.notion-card{display:flex;align-items:center;gap:12px;background:var(--gr);border:1px solid #eef3f2;border-left:5px solid var(--t);border-radius:9px;padding:12px 14px;margin-bottom:8px;text-decoration:none;transition:transform .15s,box-shadow .15s}
+.notion-card:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(13,43,62,.12)}
+.nc-ico{width:34px;height:34px;border-radius:8px;background:#fff;border:1px solid #e6ece9;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
+.nc-body{display:flex;flex-direction:column;gap:3px}
+.nc-tag{font-size:9px;font-weight:800;letter-spacing:1px;color:#fff;padding:2px 8px;border-radius:10px;align-self:flex-start}
+.nc-title{font-size:13px;font-weight:700;color:var(--n);line-height:1.3}
+.nc-arrow{margin-left:auto;color:#b8c8c5;font-size:17px;flex-shrink:0}
 /* QUIZ */
 .quiz-wrap{border:1px solid #e0e8e3;border-radius:11px;overflow:hidden;margin-bottom:10px;background:#fff}
 .quiz-hd{background:var(--tl);padding:10px 16px;display:flex;align-items:center;gap:9px;cursor:pointer;font-weight:700;color:var(--td);font-size:13px}
@@ -347,10 +354,38 @@ h2.ph{font-size:22px;font-weight:900;color:var(--n);margin-bottom:4px}
 
   <!-- 5 How to sell -->
   <div class="card">
-    <div class="block-hd"><div class="block-num" style="background:var(--o)">5</div><div><div class="block-ttl">How to Sell GeneID's Programs</div><div class="block-meta">Video + quiz</div></div></div>
+    <div class="block-hd"><div class="block-num" style="background:var(--o)">5</div><div><div class="block-ttl">How to Sell GeneID's Programs</div><div class="block-meta">3 videos + playbooks + quiz</div></div></div>
     <div class="block-body">
-      <div class="vid-embed"><iframe src="https://player.vimeo.com/video/1207441573?badge=0&autopause=0&player_id=0&app_id=58479" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen title="Discover Three Tailored Ways to Partner with GeneID"></iframe></div><div class="vid-cap">🎬 Discover Three Tailored Ways to Partner with GeneID</div>
-      <div class="task" data-task><div class="box">✓</div><div class="txt">Watched <strong>Discover Three Tailored Ways to Partner with GeneID</strong> — the GTS, Insights, and Self-Referral models.</div></div>
+      <div style="font-size:12px;font-weight:700;color:var(--t);margin-bottom:8px">a · Selling the GTS Model</div>
+      <div class="vid-embed"><iframe src="https://player.vimeo.com/video/1207827644?badge=0&autopause=0&player_id=0&app_id=58479" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen title="Selling the GTS Model"></iframe></div><div class="vid-cap">🎬 Selling the GTS Model</div>
+      <div class="task" data-task><div class="box">✓</div><div class="txt">Watched <strong>Selling the GTS Model</strong>.</div></div>
+
+      <div style="font-size:12px;font-weight:700;color:var(--gn);margin:14px 0 8px">b · Selling Test Kit Referrals</div>
+      <div class="vid-embed"><iframe src="https://player.vimeo.com/video/1207810096?badge=0&autopause=0&player_id=0&app_id=58479" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen title="Selling Test Kit Referrals"></iframe></div><div class="vid-cap">🎬 Selling Test Kit Referrals</div>
+      <div class="task" data-task><div class="box">✓</div><div class="txt">Watched <strong>Selling Test Kit Referrals</strong>.</div></div>
+
+      <div style="font-size:12px;font-weight:700;color:#15508C;margin:14px 0 8px">c · Selling GeneID Insights</div>
+      <div class="vid-embed"><iframe src="https://player.vimeo.com/video/1207810097?badge=0&autopause=0&player_id=0&app_id=58479" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen title="Selling GeneID Insights"></iframe></div><div class="vid-cap">🎬 Selling GeneID Insights</div>
+      <div class="task" data-task><div class="box">✓</div><div class="txt">Watched <strong>Selling GeneID Insights</strong>.</div></div>
+
+      <div style="font-size:12px;font-weight:700;color:var(--o);margin:14px 0 8px">📓 Program Workflow Playbooks (Notion)</div>
+      <a class="notion-card" style="border-left-color:#15508C" href="https://geneidinsights.notion.site/Template-Account-GeneID-Insights-Account-Workflow-37bc64c99af8801faa95fd4b406430d9?source=copy_link" target="_blank" rel="noopener">
+        <span class="nc-ico">🤖</span>
+        <span class="nc-body"><span class="nc-tag" style="background:#15508C">AI-POWERED · INSIGHTS</span><span class="nc-title">Template Account — GeneID Insights Account Workflow</span></span>
+        <span class="nc-arrow">↗</span>
+      </a>
+      <a class="notion-card" style="border-left-color:var(--t)" href="https://app.notion.com/p/genetictestingspecialist/GeneID-Insights-Outreach-Team-Collectors-2e9c64c99af880b884c9c54f13db5157?source=copy_link" target="_blank" rel="noopener">
+        <span class="nc-ico">👥</span>
+        <span class="nc-body"><span class="nc-tag" style="background:var(--t)">FULL SERVICE · GTS</span><span class="nc-title">GeneID Insights Outreach Team &amp; Collectors</span></span>
+        <span class="nc-arrow">↗</span>
+      </a>
+      <a class="notion-card" style="border-left-color:var(--gn)" href="https://app.notion.com/p/genetictestingspecialist/GeneID-Test-Kit-Referrals-2e8c64c99af880038d43d2ae246b7188?source=copy_link" target="_blank" rel="noopener">
+        <span class="nc-ico">📦</span>
+        <span class="nc-body"><span class="nc-tag" style="background:var(--gn)">LOWEST TOUCH · SELF-REFERRAL</span><span class="nc-title">GeneID Test Kit Referrals</span></span>
+        <span class="nc-arrow">↗</span>
+      </a>
+      <div class="callout info" style="margin-bottom:14px"><span class="ct">🔑 Access note</span>The Outreach and Test Kit playbooks open in the GeneID Notion workspace — sign in with your GeneID account if prompted.</div>
+
       <div class="quiz-wrap">
         <div class="quiz-hd" data-quiz><span>📝 How to Sell Quiz</span><span class="qbadge">QUIZ</span><span class="qtoggle">▼</span></div>
         <div class="quiz-frame-box"><iframe data-src="https://forms.office.com/Pages/ResponsePage.aspx?id=OOZpfoquNkOtGQUerRrk-q50MnevxhxNmz_ISTcZY-hUNEE5QkkxT0RSNVdYUzZEQ1FXVkdMTEJBVC4u&embed=true" loading="lazy"></iframe><div class="quiz-fallback">Quiz not loading? <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=OOZpfoquNkOtGQUerRrk-q50MnevxhxNmz_ISTcZY-hUNEE5QkkxT0RSNVdYUzZEQ1FXVkdMTEJBVC4u" target="_blank" rel="noopener">Open quiz in a new tab ↗</a></div></div>
